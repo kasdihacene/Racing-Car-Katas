@@ -4,6 +4,7 @@ public class Driver {
 
     private final String name;
     private final String country;
+    private int points;
 
     public Driver(String name, String country) {
         this.name = name;
@@ -33,5 +34,13 @@ public class Driver {
         }
         Driver other = (Driver) obj;
         return this.name.equals(other.name) && this.country.equals(other.country);
+    }
+
+    public void accumulatePoints(int points) {
+        this.points += points;
+    }
+
+    public int getPoints() {
+        return this.points;
     }
 }

@@ -1,5 +1,6 @@
 package tddmicroexercises.leaderboard;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,12 +15,25 @@ import static tddmicroexercises.leaderboard.TestData.driver3;
 
 public class LeaderboardTest {
 
+    @Before
+    public void init(){
+
+    }
+
     @Test
     public void itShouldSumThePoints() {
         // setup
+        Driver driver1 = new Driver("Nico Rosberg", "DE");
+        Driver driver2 = new Driver("Lewis Hamilton", "UK");
+        Driver driver3 = new Driver("Sebastian Vettel", "DE");
+
+        Race race1 = new Race("Australian Grand Prix", driver1, driver2, driver3);
+        Race race2 = new Race("Malaysian Grand Prix", driver3, driver2, driver1);
+        Race race3 = new Race("Chinese Grand Prix", driver2, driver1, driver3);
+        Leaderboard sampleLeaderboard1 = new Leaderboard(race1, race2, race3);
 
         // act
-        Map<String, Integer> results = TestData.sampleLeaderboard1.driverResults();
+        Map<String, Integer> results = sampleLeaderboard1.driverResults();
 
         // verify
         assertTrue("results " + results, results.containsKey("Lewis Hamilton"));
@@ -29,9 +43,16 @@ public class LeaderboardTest {
     @Test
     public void isShouldFindTheWinner() {
         // setup
+        Driver driver1 = new Driver("Nico Rosberg", "DE");
+        Driver driver2 = new Driver("Lewis Hamilton", "UK");
+        Driver driver3 = new Driver("Sebastian Vettel", "DE");
 
+        Race race1 = new Race("Australian Grand Prix", driver1, driver2, driver3);
+        Race race2 = new Race("Malaysian Grand Prix", driver3, driver2, driver1);
+        Race race3 = new Race("Chinese Grand Prix", driver2, driver1, driver3);
+        Leaderboard sampleLeaderboard1 = new Leaderboard(race1, race2, race3);
         // act
-        List<String> result = TestData.sampleLeaderboard1.driverRankings();
+        List<String> result = sampleLeaderboard1.driverRankings();
 
         // verify
         assertEquals("Lewis Hamilton", result.get(0));
@@ -40,6 +61,10 @@ public class LeaderboardTest {
     @Test
     public void itShouldKeepAllDriversWhenSamePoints() {
         // setup
+        Driver driver1 = new Driver("Nico Rosberg", "DE");
+        Driver driver2 = new Driver("Lewis Hamilton", "UK");
+        Driver driver3 = new Driver("Sebastian Vettel", "DE");
+
         // bug, drops drivers with same points
         Race winDriver1 = new Race("Australian Grand Prix", driver1, driver2, driver3);
         Race winDriver2 = new Race("Malaysian Grand Prix", driver2, driver1, driver3);

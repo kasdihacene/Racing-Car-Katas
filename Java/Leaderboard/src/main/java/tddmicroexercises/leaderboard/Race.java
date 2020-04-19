@@ -1,7 +1,6 @@
 package tddmicroexercises.leaderboard;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,40 +9,37 @@ public class Race {
     private static final Integer[] POINTS = new Integer[]{25, 18, 15};
 
     private final String name;
-    private final List<Driver> results;
-    private final Map<Driver, String> driverNames;
+    private List<Driver> rankings;
 
     public Race(String name, Driver... drivers) {
         this.name = name;
-        this.results = Arrays.asList(drivers);
-        this.driverNames = new HashMap<>();
-        for (Driver driver : results) {
-            String driverName = driver.getName();
-            if (driver instanceof SelfDrivingCar) {
-                driverName = "Self Driving Car - " + driver.getCountry() + " (" + ((SelfDrivingCar) driver).getAlgorithmVersion() + ")";
-            }
-            this.driverNames.put(driver, driverName);
+        this.rankings = Arrays.asList(drivers);
+        attributePointsByRanking();
+    }
+
+    private void attributePointsByRanking() {
+        for (int index = 0; index < rankings.size(); index++) {
+            Driver driver = rankings.get(index);
+            driver.accumulatePoints(calculatePointsByRanking(index));
         }
     }
 
-    public int position(Driver driver) {
-        return this.results.indexOf(driver);
+    public int calculatePointsByRanking(int index) {
+        return Race.POINTS[index];
     }
 
-    public int getPoints(Driver driver) {
-        return Race.POINTS[position(driver)];
-    }
-
-    public List<Driver> getResults() {
-        return results;
-    }
-
-    public String getDriverName(Driver driver) {
-        return this.driverNames.get(driver);
+    public List<Driver> getRankings() {
+        return rankings;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    void calculateResultRace(Map<String, Integer> results) {
+        for (Driver driver : getRankings()) {
+            results.put(driver.getName(), driver.getPoints());
+        }
     }
 }
