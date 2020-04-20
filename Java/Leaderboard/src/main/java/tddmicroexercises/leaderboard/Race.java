@@ -39,7 +39,7 @@ public class Race {
 
     void calculateResultRace(Map<String, Integer> results) {
         for (Driver driver : getRankings()) {
-            results.put(driver.getName(), driver.getPoints());
+            results.put(driver.getName(), driver.getAccumulatedPoints());
         }
     }
 }

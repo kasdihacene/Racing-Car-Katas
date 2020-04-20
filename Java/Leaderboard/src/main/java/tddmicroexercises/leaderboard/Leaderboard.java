@@ -11,10 +11,6 @@ public class Leaderboard {
     }
 
     public Map<String, Integer> driverResults() {
-        return computeResults();
-    }
-
-    private HashMap<String, Integer> computeResults() {
         HashMap<String, Integer> results = new HashMap<>();
         for (Race race : this.races) {
             race.calculateResultRace(results);

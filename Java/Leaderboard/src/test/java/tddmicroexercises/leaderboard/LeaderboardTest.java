@@ -9,16 +9,8 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static tddmicroexercises.leaderboard.TestData.driver1;
-import static tddmicroexercises.leaderboard.TestData.driver2;
-import static tddmicroexercises.leaderboard.TestData.driver3;
 
 public class LeaderboardTest {
-
-    @Before
-    public void init(){
-
-    }
 
     @Test
     public void itShouldSumThePoints() {
@@ -63,6 +55,26 @@ public class LeaderboardTest {
         // setup
         Driver driver1 = new Driver("Nico Rosberg", "DE");
         Driver driver2 = new Driver("Lewis Hamilton", "UK");
+        Driver driver3 = new Driver("Sebastian Vettel", "DE");
+
+        // bug, drops drivers with same points
+        Race winDriver1 = new Race("Australian Grand Prix", driver1, driver2, driver3);
+        Race winDriver2 = new Race("Malaysian Grand Prix", driver2, driver1, driver3);
+        Leaderboard exEquoLeaderBoard = new Leaderboard(winDriver1, winDriver2);
+
+        // act
+        List<String> rankings = exEquoLeaderBoard.driverRankings();
+
+        // verify
+        assertEquals(Arrays.asList(driver1.getName(), driver2.getName(), driver3.getName()), rankings);
+        // note: the order of driver1 and driver2 is JDK/platform dependent
+    }
+
+    @Test
+    public void itShouldKeepAllDriversWhenSamePointsSameNames() {
+        // setup
+        Driver driver1 = new Driver("Nassim Vuqerqur1", "ALG");
+        Driver driver2 = new Driver("Nassim Vuqerqur2", "BIZ");
         Driver driver3 = new Driver("Sebastian Vettel", "DE");
 
         // bug, drops drivers with same points

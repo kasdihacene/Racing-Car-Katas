@@ -13,12 +13,12 @@ public class RaceTest {
         Driver driver3 = new Driver("Sebastian Vettel", "DE");
 
         // act
-        Race australianGrandPrixRace = new Race("Australian Grand Prix", driver1, driver2, driver3);
+        new Race("Australian Grand Prix", driver1, driver2, driver3);
 
         // verify
-        Assert.assertEquals(25, driver1.getPoints());
-        Assert.assertEquals(18, driver2.getPoints());
-        Assert.assertEquals(15, driver3.getPoints());
+        Assert.assertEquals(25, driver1.getAccumulatedPoints());
+        Assert.assertEquals(18, driver2.getAccumulatedPoints());
+        Assert.assertEquals(15, driver3.getAccumulatedPoints());
     }
 
 }

@@ -4,7 +4,7 @@ public class Driver {
 
     private final String name;
     private final String country;
-    private int points;
+    private int accumulatedPoints;
 
     public Driver(String name, String country) {
         this.name = name;
@@ -37,10 +37,10 @@ public class Driver {
     }
 
     public void accumulatePoints(int points) {
-        this.points += points;
+        this.accumulatedPoints += points;
     }
 
-    public int getPoints() {
-        return this.points;
+    public int getAccumulatedPoints() {
+        return this.accumulatedPoints;
     }
 }
